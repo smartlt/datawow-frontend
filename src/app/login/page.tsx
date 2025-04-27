@@ -1,32 +1,52 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function LoginPage() {
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState("");
+  const [error, setError] = useState("");
+  const { login, isLoading, isAuthenticated } = useAuth();
   const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // If already authenticated, redirect to dashboard
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.push("/dashboard");
+    }
+  }, [isAuthenticated, router]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle login logic here
-    console.log('Logging in with username:', username);
-    // Redirect to home page or dashboard after login
-    // router.push('/dashboard');
+    setError("");
+
+    if (!username.trim()) {
+      setError("Username is required");
+      return;
+    }
+
+    try {
+      await login(username);
+      // The redirect is handled in the AuthContext
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "An error occurred during login"
+      );
+    }
   };
 
   return (
-    <div className="w-full min-h-screen">
-      {/* Mobile view */}
-      <div className="block md:hidden">
-        <div className="bg-main-green-500 text-white min-h-screen flex flex-col">
-          <div className="flex-1 flex flex-col items-center justify-center p-8">
+    <div>
+      <div className="block md:hidden w-full min-h-screen ">
+        <div className="bg-main-green-500 min-h-screen grid grid-cols-1 ">
+          <div className="bg-main-green-300 rounded-b-[36px] flex flex-col items-center justify-center">
             <div className="mb-12 text-center">
               <div className="flex justify-center mb-2">
                 <div className="relative w-24 h-24">
                   <Image
-                    src="/board-icon.svg"
+                    src="/board.png"
                     alt="Board Icon"
                     fill
                     className="object-contain"
@@ -36,85 +56,94 @@ export default function LoginPage() {
               </div>
               <p className="italic text-lg">a Board</p>
             </div>
-            
-            <div className="w-full max-w-xs">
-              <h1 className="text-2xl font-semibold mb-6">Sign in</h1>
-              
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <input
-                    type="text"
-                    id="username-mobile"
-                    placeholder="Username"
-                    className="w-full p-3 rounded border-0 focus:ring-0 focus:outline-none text-black"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    required
-                  />
-                </div>
-                
-                <button
-                  type="submit"
-                  className="w-full bg-[#40a575] hover:bg-[#4ab483] text-white py-3 rounded transition-colors duration-200"
-                >
-                  Sign In
-                </button>
-              </form>
-            </div>
           </div>
-          
-          <div className="pb-8 flex justify-center">
-            <div className="w-16 h-1 bg-gray-400 rounded-full"></div>
+          <div className="flex flex-col items-left justify-center px-6 py-12 lg:px-8">
+            <div className="item-left text-left">
+              <h1 className="text-2xl font-semibold mb-6">Sign in</h1>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <input
+                  type="text"
+                  id="username-mobile"
+                  placeholder="Username"
+                  className="w-full p-3 rounded bg-white border-0 focus:ring-0 focus:outline-none text-black"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  required
+                  disabled={isLoading}
+                />
+              </div>
+
+              {error && <div className="text-red-500 text-sm">{error}</div>}
+
+              <button
+                type="submit"
+                className={`w-full bg-[#40a575] hover:bg-[#4ab483] text-white py-3 rounded transition-colors duration-200 ${
+                  isLoading ? "opacity-70 cursor-not-allowed" : ""
+                }`}
+                disabled={isLoading}
+              >
+                {isLoading ? "Signing In..." : "Sign In"}
+              </button>
+            </form>
           </div>
         </div>
       </div>
-      
-      {/* Desktop view */}
-      <div className="hidden md:block">
-        <div className="bg-main-green-100 text-white min-h-screen flex items-center justify-center p-8">
-          <div className="flex w-full max-w-5xl h-96 overflow-hidden">
-            <div className="flex-1 flex flex-col items-center justify-center p-8">
-              <div className="w-full max-w-sm">
-                <h1 className="text-2xl font-semibold mb-6">Sign in</h1>
-                
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div>
-                    <input
-                      type="text"
-                      id="username-desktop"
-                      placeholder="Username"
-                      className="w-full p-3 rounded border-0 focus:ring-0 focus:outline-none text-black"
-                      value={username}
-                      onChange={(e) => setUsername(e.target.value)}
-                      required
-                    />
-                  </div>
-                  
-                  <button
-                    type="submit"
-                    className="w-full bg-[#40a575] hover:bg-[#4ab483] text-white py-3 rounded transition-colors duration-200"
-                  >
-                    Sign In
-                  </button>
-                </form>
-              </div>
+
+      <div className="hidden md:block w-full min-h-screen ">
+        <div className="bg-main-green-500 min-h-screen grid grid-cols-2 ">
+          <div className="flex flex-col items-left justify-center px-6 py-12 lg:px-8">
+            <div className="item-left text-left">
+              <h1 className="text-2xl font-semibold mb-6">Sign in</h1>
             </div>
-            
-            <div className="flex-1 flex flex-col items-center justify-center p-8">
-              <div className="relative w-56 h-56">
-                <Image
-                  src="/board-icon.svg"
-                  alt="Board Icon"
-                  fill
-                  className="object-contain"
-                  priority
+
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <input
+                  type="text"
+                  id="username-desktop"
+                  placeholder="Username"
+                  className="w-full p-3 rounded bg-white border-0 focus:ring-0 focus:outline-none text-black"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  required
+                  disabled={isLoading}
                 />
               </div>
-              <p className="italic text-lg mt-4">a Board</p>
+
+              {error && <div className="text-red-500 text-sm">{error}</div>}
+
+              <button
+                type="submit"
+                className={`w-full bg-[#40a575] hover:bg-[#4ab483] text-white py-3 rounded transition-colors duration-200 ${
+                  isLoading ? "opacity-70 cursor-not-allowed" : ""
+                }`}
+                disabled={isLoading}
+              >
+                {isLoading ? "Signing In..." : "Sign In"}
+              </button>
+            </form>
+          </div>
+          <div className="bg-main-green-300 rounded-l-[36px] flex flex-col items-center justify-center">
+            <div className="mb-12 text-center">
+              <div className="flex justify-center mb-2">
+                <div className="relative w-24 h-24">
+                  <Image
+                    src="/board.png"
+                    alt="Board Icon"
+                    fill
+                    className="object-contain"
+                    priority
+                  />
+                </div>
+              </div>
+              <p className="italic text-lg">a Board</p>
             </div>
           </div>
         </div>
       </div>
     </div>
   );
-} 
+}
