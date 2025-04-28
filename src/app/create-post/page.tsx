@@ -3,16 +3,19 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../contexts/AuthContext";
-import Dashboard from "../components/Dashboard";
-import usePostsAndCategories from "../hooks/usePostsAndCategories";
+import CreatePost from "../components/CreatePost";
+import useCategories from "../hooks/useCategories";
 
-export default function DashboardPage() {
+export default function CreatePostPage() {
   const { isAuthenticated, isLoading: authLoading, accessToken } = useAuth();
   const router = useRouter();
 
-  // Use our custom hook to fetch posts and categories
-  const { posts, categories, isLoading, error, refetch } =
-    usePostsAndCategories(isAuthenticated, accessToken);
+  // Use our custom hook to fetch categories
+  const {
+    categories,
+    isLoading: categoriesLoading,
+    error,
+  } = useCategories(isAuthenticated, accessToken);
 
   // Redirect to login if not authenticated
   useEffect(() => {
@@ -21,7 +24,7 @@ export default function DashboardPage() {
     }
   }, [authLoading, isAuthenticated, router]);
 
-  // Show loading state while authentication is in progress
+  // Show loading state
   if (authLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-main-green-500 text-white">
@@ -40,10 +43,9 @@ export default function DashboardPage() {
   }
 
   return (
-    <Dashboard
-      posts={posts}
+    <CreatePost
       categories={categories}
-      isLoading={isLoading}
+      isLoading={categoriesLoading}
       error={error}
     />
   );
