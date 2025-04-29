@@ -55,7 +55,7 @@ export const CommentForm = ({
 
   if (isMobile) {
     return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+      <div className="fixed inset-0 bg-black/75 z-50 flex items-center justify-center p-4">
         <div ref={modalRef} className="bg-white rounded-lg w-full max-w-md">
           <div className="flex justify-between items-center border-b p-4">
             <h2 className="font-bold">Add Comments</h2>
@@ -89,21 +89,25 @@ export const CommentForm = ({
               disabled={isSubmitting}
               autoFocus
             ></textarea>
-            <div className="flex justify-between">
-              <button
-                type="button"
-                onClick={onCancel}
-                className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-md transition-colors"
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                className="bg-[#40a575] hover:bg-[#4ab483] text-white px-4 py-2 rounded-md transition-colors"
-                disabled={isSubmitting || !newComment.trim()}
-              >
-                Post
-              </button>
+            <div className="grid grid-cols-1 gap-2">
+              <div className="col-span-1">
+                <button
+                  type="button"
+                  onClick={onCancel}
+                  className="w-full bg-transparent hover:bg-success border border-success text-success hover:text-white px-4 py-2 rounded-md transition-colors"
+                >
+                  Cancel
+                </button>
+              </div>
+              <div className="col-span-1">
+                <button
+                  type="submit"
+                  className="w-full bg-success hover:bg-success-hover text-white px-4 py-2 rounded-md transition-colors"
+                  disabled={isSubmitting || !newComment.trim()}
+                >
+                  Post
+                </button>
+              </div>
             </div>
           </form>
         </div>

@@ -20,6 +20,7 @@ export interface Comment {
   author: Author;
   content: string;
   _id: string;
+  createdAt: string;
 }
 
 export interface Post {
