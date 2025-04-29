@@ -19,10 +19,7 @@ export const CommentList = ({ comments }: CommentListProps) => {
   return (
     <div className="space-y-6">
       {comments.map((comment) => (
-        <div
-          key={comment._id}
-          className="border-b border-gray-100 pb-6 last:border-0 last:pb-0"
-        >
+        <div key={comment._id} className="pb-6 last:pb-0">
           <div className="flex items-center mb-2">
             <div className="h-8 w-8 relative overflow-hidden rounded-full mr-3">
               <div className="bg-gray-200 h-full w-full flex items-center justify-center">

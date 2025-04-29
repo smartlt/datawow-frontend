@@ -57,9 +57,9 @@ export const CommentForm = ({
     return (
       <div className="fixed inset-0 bg-black/75 z-50 flex items-center justify-center p-4">
         <div ref={modalRef} className="bg-white rounded-lg w-full max-w-md">
-          <div className="flex justify-between items-center border-b p-4">
-            <h2 className="font-bold">Add Comments</h2>
-            <button onClick={onCancel} className="text-gray-500">
+          <div className="flex justify-between items-center p-4">
+            <h1 className="font-bold">Add Comments</h1>
+            <button onClick={onCancel} className="relative">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
@@ -116,8 +116,7 @@ export const CommentForm = ({
   }
 
   return (
-    <div className="bg-white rounded-lg p-6 shadow-sm mb-4">
-      <h2 className="font-bold mb-4">Add Comment</h2>
+    <div className="bg-white p-6 mb-4">
       <form onSubmit={handleSubmit}>
         {commentError && (
           <div className="mb-3 p-3 bg-red-50 text-red-500 rounded-md">
@@ -127,8 +126,8 @@ export const CommentForm = ({
         <textarea
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
-          className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-main-green-300 mb-3"
-          placeholder="Write your comment here..."
+          className="w-full p-3 border border-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-main-green-300 mb-3"
+          placeholder="What's on your mind..."
           rows={3}
           disabled={isSubmitting}
           autoFocus

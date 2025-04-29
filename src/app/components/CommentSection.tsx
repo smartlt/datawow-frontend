@@ -85,8 +85,7 @@ export const CommentSection = ({
       )}
 
       {/* Comments list */}
-      <div className="bg-white rounded-lg p-6 shadow-sm">
-        <h2 className="font-bold mb-4">Comments</h2>
+      <div className="bg-white p-6">
         <CommentList comments={comments} />
       </div>
     </>
