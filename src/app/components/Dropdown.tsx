@@ -119,7 +119,7 @@ export default function Dropdown({
 
       {isOpen && (
         <div
-          className={`absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5  focus:outline-hidden  ${maxHeight} overflow-y-auto`}
+          className={`absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden ${maxHeight} overflow-y-scroll scrollbar-hide`}
         >
           <div className="py-1" role="listbox">
             {(showAllOption || allowDeselect) && (

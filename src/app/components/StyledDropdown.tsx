@@ -115,7 +115,7 @@ export default function StyledDropdown({
 
       {isOpen && (
         <div
-          className={`absolute left-0 z-10 mt-2 w-full origin-top-left rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden ${maxHeight} overflow-y-auto`}
+          className={`absolute left-0 z-10 mt-2 w-full origin-top-left rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden ${maxHeight} overflow-y-auto scrollbar-hide`}
         >
           <div className="py-1" role="listbox">
             {(showAllOption || allowDeselect) && (

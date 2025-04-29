@@ -29,8 +29,8 @@ export default function useCategories(
     setError(null);
 
     try {
-      const response = await api.get<CategoriesResponse>("/categories");
-      setCategories(response.data || []);
+      const response = await api.get<Category[]>("/categories");
+      setCategories(response || []);
     } catch (err) {
       console.error("Error fetching categories:", err);
       setError("Failed to load categories. Please try again later.");
