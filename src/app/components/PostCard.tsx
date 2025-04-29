@@ -15,6 +15,7 @@ interface PostCardProps {
   categories: any[];
   onPostUpdated?: () => void;
   className?: string;
+  searchTerm?: string;
 }
 
 export const PostCard = ({
@@ -23,6 +24,7 @@ export const PostCard = ({
   categories = [],
   onPostUpdated,
   className = "",
+  searchTerm = "",
 }: PostCardProps) => {
   const { user } = useAuth();
   const isAuthor = user?.id === post.author._id;
@@ -37,6 +39,29 @@ export const PostCard = ({
   ) => {
     if (content.length <= maxLength) return content;
     return content.slice(0, maxLength) + "...";
+  };
+
+  // Function to highlight matched text in title
+  const highlightMatch = (text: string, searchTerm: string) => {
+    if (!searchTerm || !text) return <>{text}</>;
+
+    // Case-insensitive search
+    const regex = new RegExp(`(${searchTerm})`, "gi");
+    const parts = text.split(regex);
+
+    return (
+      <>
+        {parts.map((part, i) =>
+          regex.test(part) ? (
+            <span key={i} className="bg-golden text-white font-semibold">
+              {part}
+            </span>
+          ) : (
+            <span key={i}>{part}</span>
+          )
+        )}
+      </>
+    );
   };
 
   // Handle edit button click
@@ -68,9 +93,15 @@ export const PostCard = ({
     }
   };
 
+  // Determine if post title matches search term
+  const titleMatches =
+    searchTerm && post.title.toLowerCase().includes(searchTerm.toLowerCase());
+
   return (
     <div
-      className={`bg-white p-6 border-b border-gray-100 hover:shadow-md transition-shadow ${className}`}
+      className={`bg-white p-6 border-b border-gray-100 hover:shadow-md transition-shadow ${className} ${
+        titleMatches ? "ring-2 ring-golden" : ""
+      }`}
     >
       <div className="flex justify-between items-start">
         <div className="flex items-center mb-2">
@@ -138,7 +169,7 @@ export const PostCard = ({
 
       <Link href={`/posts/${post._id}`} className="block">
         <h2 className="text-xl font-bold mb-2 mt-2 hover:text-main-green-300 transition-colors">
-          {post.title}
+          {searchTerm ? highlightMatch(post.title, searchTerm) : post.title}
         </h2>
         <p className="text-gray-700 mb-4 hover:text-gray-900 transition-colors">
           {truncateContent(post.content)}

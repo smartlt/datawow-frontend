@@ -33,19 +33,17 @@ export default function PostsLayout({
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
 
-  // Filter posts based on search term and category
+  // Filter posts based on category only, not search term
   const filteredPosts = posts.filter((post) => {
-    const matchesSearch =
-      post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      post.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      post.author.username.toLowerCase().includes(searchTerm.toLowerCase());
-
     const matchesCategory = selectedCategory
       ? post.category._id === selectedCategory
       : true;
 
-    return matchesSearch && matchesCategory;
+    return matchesCategory;
   });
+
+  // Check if search should be active (minimum 2 characters)
+  const isSearchActive = searchTerm.length >= 2;
 
   // Convert categories to option format for dropdown
   const categoryOptions: DropdownOption[] = categories.map((cat) => ({
@@ -191,6 +189,7 @@ export default function PostsLayout({
                 post={post}
                 categories={categories}
                 onPostUpdated={onPostCreated}
+                searchTerm={isSearchActive ? searchTerm : ""}
                 className={`${index === 0 ? "rounded-t-lg" : ""} ${
                   index === filteredPosts.length - 1 ? "rounded-b-lg" : ""
                 }`}

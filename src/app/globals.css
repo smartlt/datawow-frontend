@@ -22,6 +22,7 @@
   --color-success-hover: #4ab483;
   --color-gray-100: #BBC2C0;
   --color-gray-300: #939494;
+  --color-golden: #C5A365;
 }
 
 @media (prefers-color-scheme: dark) {
