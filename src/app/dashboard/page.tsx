@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../contexts/AuthContext";
-import Dashboard from "../components/Dashboard";
+import PostsLayout from "../components/PostsLayout";
 import usePostsAndCategories from "../hooks/usePostsAndCategories";
 
 export default function DashboardPage() {
@@ -40,11 +40,14 @@ export default function DashboardPage() {
   }
 
   return (
-    <Dashboard
+    <PostsLayout
       posts={posts}
       categories={categories}
       isLoading={isLoading}
       error={error}
+      title="All Posts"
+      variant="dashboard"
+      onPostCreated={refetch}
     />
   );
 }

@@ -31,13 +31,13 @@ export const CommentList = ({ comments }: CommentListProps) => {
             <div>
               <p className="font-medium">
                 {comment.author.username}
-                <span className="text-xs text-gray-500 ml-2">
+                <span className="text-xs text-gray-300 ml-2">
                   {timeAgo(comment.createdAt)}
                 </span>
               </p>
             </div>
           </div>
-          <p className="text-gray-700 pl-11">{comment.content}</p>
+          <p className="pl-11">{comment.content}</p>
         </div>
       ))}
     </div>

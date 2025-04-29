@@ -112,6 +112,17 @@ export const api = {
       data,
     }),
 
+  patch: <T = any>(
+    endpoint: string,
+    data: any,
+    options: AxiosRequestConfig = {}
+  ) =>
+    fetchWithAuth<T>(endpoint, {
+      ...options,
+      method: "PATCH",
+      data,
+    }),
+
   delete: <T = any>(endpoint: string, options: AxiosRequestConfig = {}) =>
     fetchWithAuth<T>(endpoint, { ...options, method: "DELETE" }),
 };

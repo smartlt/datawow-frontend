@@ -29,27 +29,11 @@ export default function useCategories(
     setError(null);
 
     try {
-      const response = await api.get<CategoriesResponse>("/posts/categories");
+      const response = await api.get<CategoriesResponse>("/categories");
       setCategories(response.data || []);
     } catch (err) {
       console.error("Error fetching categories:", err);
       setError("Failed to load categories. Please try again later.");
-
-      // Mock categories for development
-      if (process.env.NODE_ENV === "development") {
-        const mockCategories: Category[] = [
-          { _id: "cat-1", name: "History" },
-          { _id: "cat-2", name: "Exercise" },
-          { _id: "cat-3", name: "Technology" },
-          { _id: "cat-4", name: "Travel" },
-          { _id: "cat-5", name: "Food" },
-          { _id: "cat-6", name: "Pets" },
-          { _id: "cat-7", name: "Health" },
-          { _id: "cat-8", name: "Fashion" },
-          { _id: "cat-9", name: "Others" },
-        ];
-        setCategories(mockCategories);
-      }
     } finally {
       setIsLoading(false);
     }

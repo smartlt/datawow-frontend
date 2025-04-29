@@ -89,7 +89,7 @@ export default function Navbar({ onMenuToggle }: NavbarProps) {
                   />
                   <path d="M15 7h1a2 2 0 012 2v5.5a1.5 1.5 0 01-3 0V7z" />
                 </svg>
-                <span>Our Blog</span>
+                <span>My Blog</span>
               </Link>
               {isAuthenticated && (
                 <>
@@ -186,7 +186,7 @@ export default function Navbar({ onMenuToggle }: NavbarProps) {
                     />
                     <path d="M15 7h1a2 2 0 012 2v5.5a1.5 1.5 0 01-3 0V7z" />
                   </svg>
-                  <span>Our Blog</span>
+                  <span>My Blog</span>
                 </Link>
               </div>
             </nav>
