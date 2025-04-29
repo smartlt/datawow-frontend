@@ -16,7 +16,7 @@ interface UsePostsAndCategoriesResult {
 }
 
 export default function usePostsAndCategories(
-  isAuthenticated: boolean,
+  shouldFetch: boolean,
   accessToken: string | null
 ): UsePostsAndCategoriesResult {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -25,22 +25,34 @@ export default function usePostsAndCategories(
   const [error, setError] = useState<string | null>(null);
 
   const fetchData = async () => {
-    if (!isAuthenticated || !accessToken) return;
+    if (!shouldFetch) return;
 
     setIsLoading(true);
     setError(null);
 
     try {
-      // Fetch both posts and categories in parallel
-      const [postsResponse, categoriesResponse] = await Promise.all([
-        api.get<Post[]>("/posts"),
-        api.get<Category[]>("/categories"),
-      ]);
+      // Using separate try-catch blocks for each request to handle auth errors gracefully
+      let postsResponse: Post[] = [];
+      let categoriesResponse: Category[] = [];
+
+      try {
+        postsResponse = await api.get<Post[]>("/posts");
+      } catch (err) {
+        console.warn("Could not fetch posts:", err);
+        // Continue with empty posts
+      }
+
+      try {
+        categoriesResponse = await api.get<Category[]>("/categories");
+      } catch (err) {
+        console.warn("Could not fetch categories:", err);
+        // Continue with empty categories
+      }
 
       setPosts(postsResponse || []);
       setCategories(categoriesResponse || []);
     } catch (err) {
-      console.error("Error fetching data:", err);
+      console.error("Error in data fetching:", err);
       setError("Failed to load data. Please try again later.");
     } finally {
       setIsLoading(false);
@@ -49,7 +61,7 @@ export default function usePostsAndCategories(
 
   useEffect(() => {
     fetchData();
-  }, [isAuthenticated, accessToken]);
+  }, [shouldFetch, accessToken]);
 
   return {
     posts,

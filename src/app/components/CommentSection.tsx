@@ -85,7 +85,7 @@ export const CommentSection = ({
       )}
 
       {/* Comments list */}
-      <div className="bg-white p-6">
+      <div className="bg-white py-6">
         <CommentList comments={comments} />
       </div>
     </>

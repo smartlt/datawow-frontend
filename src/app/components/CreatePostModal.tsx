@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useCreatePost } from "../hooks/useCreatePost";
 import { Category } from "./Dashboard";
 import { PostForm } from "./PostForm";
+import { useAuth } from "../contexts/AuthContext";
 
 interface CreatePostModalProps {
   isOpen: boolean;
@@ -21,6 +22,7 @@ export const CreatePostModal = ({
 }: CreatePostModalProps) => {
   const router = useRouter();
   const modalRef = useRef<HTMLDivElement>(null);
+  const { isAuthenticated } = useAuth();
 
   const {
     title,
@@ -39,6 +41,13 @@ export const CreatePostModal = ({
       router.push(`/posts/${post._id}`);
     },
   });
+
+  useEffect(() => {
+    if (!isAuthenticated && isOpen) {
+      onClose();
+      router.push("/login");
+    }
+  }, [isAuthenticated, isOpen, onClose, router]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

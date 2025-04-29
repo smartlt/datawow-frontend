@@ -163,7 +163,7 @@ export const PostCard = ({
           </svg>
           <span>{post.comments.length} Comments</span>
         </div>
-        <span>{timeAgo(post.createdAt)}</span>
+        {/* <span>{timeAgo(post.createdAt)}</span> */}
       </div>
 
       {/* Edit Post Modal */}

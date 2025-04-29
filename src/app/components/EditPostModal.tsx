@@ -152,7 +152,7 @@ export const EditPostModal = ({
               className="w-full md:w-auto px-4 py-2 bg-success hover:bg-success-hover text-white rounded-md transition-colors"
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Updating..." : "Update"}
+              {isSubmitting ? "Comfirming..." : "Confirm"}
             </button>
           </div>
         </div>

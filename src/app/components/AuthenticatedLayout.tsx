@@ -20,7 +20,7 @@ export default function AuthenticatedLayout({
 
   return (
     <>
-      {isAuthenticated && !isLoginPage && <Navbar />}
+      {!isLoginPage && <Navbar />}
       {children}
     </>
   );

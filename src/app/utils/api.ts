@@ -43,13 +43,12 @@ axiosInstance.interceptors.response.use(
     // Handle unauthorized responses (expired or invalid token)
     if (error.response?.status === 401) {
       if (typeof window !== "undefined") {
-        // Clear the token
+        // Clear the token if it exists
         localStorage.removeItem("accessToken");
 
-        // Redirect to login page
-        window.location.href = "/login";
+        // Don't automatically redirect - let the component handle it
       }
-      return Promise.reject(new Error("Session expired. Please log in again."));
+      return Promise.reject(new Error("Authentication required"));
     }
 
     // Handle other error responses

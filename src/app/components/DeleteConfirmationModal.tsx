@@ -27,17 +27,17 @@ export const DeleteConfirmationModal: React.FC<
             Once deleted, it cannot be recovered.
           </p>
 
-          <div className="space-y-3">
+          <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0">
             <button
               onClick={onConfirm}
-              className="w-full py-2 px-4 bg-red-500 hover:bg-red-600 text-white rounded-md transition-colors"
+              className="w-full py-2 px-4 mx-2 bg-red-500 hover:bg-red-600 text-white rounded-md transition-colors order-1 sm:order-2"
             >
               Delete
             </button>
 
             <button
               onClick={onCancel}
-              className="w-full py-2 px-4 bg-transparent text-gray-700 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+              className="w-full py-2 px-4 mx-2 bg-transparent text-gray-700 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors order-2 sm:order-1"
             >
               Cancel
             </button>

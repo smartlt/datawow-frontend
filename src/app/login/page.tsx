@@ -54,12 +54,14 @@ export default function LoginPage() {
                   />
                 </div>
               </div>
-              <p className="italic text-lg">a Board</p>
+              <p className="italic text-lg text-white">a Board</p>
             </div>
           </div>
           <div className="flex flex-col items-left justify-center px-6 py-12 lg:px-8">
             <div className="item-left text-left">
-              <h1 className="text-2xl font-semibold mb-6">Sign in</h1>
+              <h1 className="text-2xl font-semibold mb-6 text-white">
+                Sign in
+              </h1>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -80,7 +82,7 @@ export default function LoginPage() {
 
               <button
                 type="submit"
-                className={`w-full bg-[#40a575] hover:bg-[#4ab483] text-white py-3 rounded transition-colors duration-200 ${
+                className={`w-full bg-success hover:bg-success-hover text-white py-3 rounded transition-colors duration-200 ${
                   isLoading ? "opacity-70 cursor-not-allowed" : ""
                 }`}
                 disabled={isLoading}
@@ -96,7 +98,9 @@ export default function LoginPage() {
         <div className="bg-main-green-500 min-h-screen grid grid-cols-2 ">
           <div className="flex flex-col items-left justify-center px-6 py-12 lg:px-8">
             <div className="item-left text-left">
-              <h1 className="text-2xl font-semibold mb-6">Sign in</h1>
+              <h1 className="text-2xl font-semibold mb-6 text-white">
+                Sign in
+              </h1>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -117,7 +121,7 @@ export default function LoginPage() {
 
               <button
                 type="submit"
-                className={`w-full bg-[#40a575] hover:bg-[#4ab483] text-white py-3 rounded transition-colors duration-200 ${
+                className={`w-full bg-success hover:bg-success-hover text-white py-3 rounded transition-colors duration-200 ${
                   isLoading ? "opacity-70 cursor-not-allowed" : ""
                 }`}
                 disabled={isLoading}
@@ -139,7 +143,7 @@ export default function LoginPage() {
                   />
                 </div>
               </div>
-              <p className="italic text-lg">a Board</p>
+              <p className="italic text-lg text-white">a Board</p>
             </div>
           </div>
         </div>

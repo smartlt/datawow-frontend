@@ -15,12 +15,6 @@ interface PostProps {
   refetch: () => Promise<void>;
 }
 
-interface CommentResponse {
-  success: boolean;
-  message: string;
-  data: Comment;
-}
-
 export default function Post({
   post,
   comments,
@@ -36,7 +30,7 @@ export default function Post({
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-100 p-4 pt-[3.5rem] md:pt-4 md:pl-[260px]">
+      <div className="min-h-screen bg-gray-100 p-4 pt-[3.5rem] md:pt-4 md:pl-[350px]">
         <div className="max-w-3xl mx-auto">
           <div className="bg-white rounded-lg p-6 shadow-sm flex justify-center items-center h-64">
             <p className="text-gray-500">Loading post...</p>
@@ -48,7 +42,7 @@ export default function Post({
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-100 p-4 pt-[3.5rem] md:pt-4 md:pl-[260px]">
+      <div className="min-h-screen bg-gray-100 p-4 pt-[3.5rem] md:pt-4 md:pl-[350px]">
         <div className="max-w-3xl mx-auto">
           <div className="bg-red-50 text-red-500 p-6 rounded-lg shadow-sm">
             <p>{error}</p>
@@ -66,7 +60,7 @@ export default function Post({
 
   if (!post) {
     return (
-      <div className="min-h-screen bg-gray-100 p-4 pt-[3.5rem] md:pt-4 md:pl-[260px]">
+      <div className="min-h-screen bg-gray-100 p-4 pt-[3.5rem] md:pt-4 md:pl-[350px]">
         <div className="max-w-3xl mx-auto">
           <div className="bg-white rounded-lg p-6 shadow-sm">
             <p className="text-gray-500">Post not found.</p>
@@ -83,12 +77,12 @@ export default function Post({
   }
 
   return (
-    <div className="min-h-screen bg-white p-4 pt-[3.5rem] md:pt-4 md:pl-[260px]">
+    <div className="min-h-screen bg-white p-4 pt-[3.5rem] md:pt-4 md:pl-[350px]">
       <div className="max-w-3xl mx-auto">
         {/* Back button */}
         <button
           onClick={handleBack}
-          className="flex items-center text-gray-600 hover:text-gray-900 mb-4 bg-main-green-100 p-2 rounded-full"
+          className="flex items-center text-gray-600 mb-8 hover:text-gray-900 mb-4 bg-main-green-100 p-2 rounded-full"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

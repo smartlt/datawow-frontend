@@ -55,63 +55,96 @@ export default function Navbar({ onMenuToggle }: NavbarProps) {
           </button>
         </div>
 
-        {isMenuOpen && (
-          <div className="absolute left-30 right-0 bg-main-green-500 shadow-lg z-50 ">
-            <div className="flex flex-col p-4 space-y-3">
-              <Link
-                href="/dashboard"
-                className="flex items-center space-x-2 hover:bg-main-green-300 p-2 rounded-md"
+        <div
+          className={`fixed left-30 right-0 bottom-0 bg-main-green-500 shadow-lg z-50 h-screen transform transition-transform duration-300 ease-in-out ${
+            isMenuOpen ? "translate-x-0" : "translate-x-full"
+          }`}
+        >
+          <div className="flex flex-col p-4 space-y-3">
+            <button
+              onClick={handleMenuToggle}
+              className="flex items-center space-x-2 hover:bg-main-green-300 p-2 rounded-md mb-2"
+              aria-label="Close menu"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
-                </svg>
-                <span>Home</span>
-              </Link>
-              <Link
-                href="/blog"
-                className="flex items-center space-x-2 hover:bg-main-green-300 p-2 rounded-md"
+                <path
+                  fillRule="evenodd"
+                  d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </button>
+
+            <Link
+              href="/dashboard"
+              className="flex items-center space-x-2 hover:bg-main-green-300 p-2 rounded-md"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
+                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+              </svg>
+              <span>Home</span>
+            </Link>
+            <Link
+              href="/blog"
+              className="flex items-center space-x-2 hover:bg-main-green-300 p-2 rounded-md"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M2 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 002 2H4a2 2 0 01-2-2V5zm3 1h6v4H5V6zm6 6H5v2h6v-2z"
+                  clipRule="evenodd"
+                />
+                <path d="M15 7h1a2 2 0 012 2v5.5a1.5 1.5 0 01-3 0V7z" />
+              </svg>
+              <span>My Blog</span>
+            </Link>
+            {isAuthenticated && (
+              <>
+                <button
+                  onClick={logout}
+                  className="flex items-center space-x-2 text-white hover:bg-red-600 p-2 rounded-md"
                 >
-                  <path
-                    fillRule="evenodd"
-                    d="M2 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 002 2H4a2 2 0 01-2-2V5zm3 1h6v4H5V6zm6 6H5v2h6v-2z"
-                    clipRule="evenodd"
-                  />
-                  <path d="M15 7h1a2 2 0 012 2v5.5a1.5 1.5 0 01-3 0V7z" />
-                </svg>
-                <span>My Blog</span>
-              </Link>
-              {isAuthenticated && (
-                <>
-                  <button
-                    onClick={logout}
-                    className="text-left hover:bg-red-600 p-2 rounded-md"
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
                   >
-                    Logout
-                  </button>
-                </>
-              )}
-              {!isAuthenticated && (
-                <Link
-                  href="/login"
-                  className="hover:bg-main-green-300 p-2 rounded-md"
-                >
-                  Sign In
-                </Link>
-              )}
-            </div>
+                    <path
+                      fillRule="evenodd"
+                      d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  <span>Logout</span>
+                </button>
+              </>
+            )}
+            {!isAuthenticated && (
+              <Link
+                href="/login"
+                className="hover:bg-main-green-300 p-2 rounded-md"
+              >
+                Sign In
+              </Link>
+            )}
           </div>
-        )}
+        </div>
       </nav>
 
       {/* Desktop Layout */}
@@ -151,12 +184,12 @@ export default function Navbar({ onMenuToggle }: NavbarProps) {
 
         {/* Left Sidebar */}
         <div className="flex">
-          <div className="bg-gray-100 text-black h-[calc(100vh-3.5rem)] w-48 fixed left-0 flex flex-col">
+          <div className="bg-gray-100 text-black h-screen w-[280px] fixed left-0 flex flex-col">
             <nav className="flex flex-col mt-6 px-4">
               <div className="flex flex-col space-y-4">
                 <Link
                   href="/dashboard"
-                  className="flex items-center space-x-2 hover:bg-main-green-300 p-2 rounded-md"
+                  className="flex items-center space-x-2 hover:bg-gray-300 p-2 rounded-md"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -171,7 +204,7 @@ export default function Navbar({ onMenuToggle }: NavbarProps) {
 
                 <Link
                   href="/blog"
-                  className="flex items-center space-x-2 hover:bg-main-green-300 p-2 rounded-md"
+                  className="flex items-center space-x-2 hover:bg-gray-300 p-2 rounded-md"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -188,6 +221,48 @@ export default function Navbar({ onMenuToggle }: NavbarProps) {
                   </svg>
                   <span>My Blog</span>
                 </Link>
+
+                {isAuthenticated && (
+                  <button
+                    onClick={logout}
+                    className="flex items-center space-x-2 hover:bg-gray-300 p-2 rounded-md mt-4"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    <span>Logout</span>
+                  </button>
+                )}
+
+                {!isAuthenticated && (
+                  <Link
+                    href="/login"
+                    className="flex items-center space-x-2 hover:bg-main-green-300 p-2 rounded-md mt-4"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M3 3a1 1 0 011 1v12a1 1 0 11-2 0V4a1 1 0 011-1zm7.707 3.293a1 1 0 010 1.414L9.414 9H17a1 1 0 110 2H9.414l1.293 1.293a1 1 0 01-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    <span>Sign In</span>
+                  </Link>
+                )}
               </div>
             </nav>
           </div>

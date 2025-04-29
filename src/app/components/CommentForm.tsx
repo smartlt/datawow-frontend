@@ -83,7 +83,7 @@ export const CommentForm = ({
             <textarea
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-main-green-300 mb-3"
+              className="w-full p-3 rounded-md mb-3"
               placeholder="What's on your mind..."
               rows={3}
               disabled={isSubmitting}
@@ -116,7 +116,7 @@ export const CommentForm = ({
   }
 
   return (
-    <div className="bg-white p-6 mb-4">
+    <div className="bg-white py-4 mb-4">
       <form onSubmit={handleSubmit}>
         {commentError && (
           <div className="mb-3 p-3 bg-red-50 text-red-500 rounded-md">
@@ -136,7 +136,7 @@ export const CommentForm = ({
           <button
             type="button"
             onClick={onCancel}
-            className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-md transition-colors"
+            className="bg-transparent border border-success text-success hover:bg-success hover:text-white px-4 py-2 rounded-md transition-colors"
           >
             Cancel
           </button>

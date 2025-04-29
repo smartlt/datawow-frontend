@@ -6,6 +6,7 @@ import Dropdown, { DropdownOption } from "./Dropdown";
 import { CreatePostModal } from "./CreatePostModal";
 import { PostCard } from "./PostCard";
 import { Post, Category } from "./Dashboard";
+import { useAuth } from "../contexts/AuthContext";
 
 interface PostsLayoutProps {
   posts: Post[];
@@ -26,9 +27,11 @@ export default function PostsLayout({
   variant = "dashboard",
   onPostCreated,
 }: PostsLayoutProps) {
+  const { isAuthenticated } = useAuth();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
 
   // Filter posts based on search term and category
   const filteredPosts = posts.filter((post) => {
@@ -57,22 +60,28 @@ export default function PostsLayout({
 
   return (
     <div className="bg-gray-100 min-h-screen">
-      <div className="max-w-6xl mx-auto p-4 pt-[3.5rem] md:pt-4 md:pl-[260px]">
+      <div className="max-w-6xl mx-auto md:pt-4 md:ps-[280px]">
         {/* Search and Filter Bar */}
-        <div className="items-center justify-between mb-6 space-y-4 md:space-y-0">
-          <div className="grid grid-cols-2 gap-4">
-            <div className="col-span-1 relative">
+        <div className="items-center justify-between mx-4 py-4">
+          <div className="flex flex-row items-center justify-between w-full gap-2 relative">
+            <div
+              className={`relative transition-all duration-300 ease-in-out ${
+                isSearchFocused ? "w-full" : "w-[35%] md:w-[45%]"
+              } z-10`}
+            >
               <input
                 type="text"
                 placeholder="Search"
-                className="w-full p-2 pl-10 rounded-md border border-main-green-100 focus:outline-none focus:ring-2 focus:ring-main-green-300"
+                className="w-full p-2 pl-8 text-sm rounded-md border border-main-green-100 focus:outline-none focus:ring-2 focus:ring-main-green-100"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
+                onFocus={() => setIsSearchFocused(true)}
+                onBlur={() => setIsSearchFocused(false)}
               />
-              <div className="absolute left-3 top-2.5">
+              <div className="absolute left-2 top-2.5">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 text-black"
+                  className="h-4 w-4 text-black"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -86,32 +95,45 @@ export default function PostsLayout({
                 </svg>
               </div>
             </div>
-            <div className="col-span-1 flex justify-end">
-              <div className="flex items-center space-x-4">
-                {/* Dropdown Component */}
-                <Dropdown
-                  options={categoryOptions}
-                  selectedOption={selectedCategory}
-                  placeholder="Community"
-                  onChange={handleCategoryChange}
-                  showAllOption={true}
-                  allOptionText="All Categories"
-                  className="w-48"
-                />
-                <button
-                  onClick={() => setIsCreateModalOpen(true)}
-                  className="bg-success hover:bg-success-hover text-white px-4 py-2 rounded-md transition-colors"
-                >
-                  Create +
-                </button>
-              </div>
+
+            {/* Dropdown Component */}
+            <div
+              className={`transition-opacity duration-300 ${
+                isSearchFocused
+                  ? "opacity-0 invisible absolute"
+                  : "opacity-100 visible"
+              } w-[35%]`}
+            >
+              <Dropdown
+                options={categoryOptions}
+                selectedOption={selectedCategory}
+                placeholder="Community"
+                onChange={handleCategoryChange}
+                showAllOption={true}
+                allOptionText="All Categories"
+                className="w-full"
+              />
+            </div>
+
+            {/* Button */}
+            <div
+              className={`transition-opacity duration-300 ${
+                isSearchFocused
+                  ? "opacity-0 invisible absolute"
+                  : "opacity-100 visible"
+              } w-[25%]`}
+            >
+              <button
+                onClick={() => setIsCreateModalOpen(true)}
+                disabled={!isAuthenticated}
+                className={`bg-success hover:bg-success-hover text-white px-3 py-2 text-sm rounded-md transition-colors w-full overflow-hidden text-ellipsis text-center ${
+                  !isAuthenticated ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+              >
+                <span className="block truncate">Create +</span>
+              </button>
             </div>
           </div>
-        </div>
-
-        {/* Header for view mode */}
-        <div className="mb-6">
-          <h2 className="text-xl font-semibold">{title}</h2>
         </div>
 
         {/* CreatePostModal */}
@@ -140,7 +162,7 @@ export default function PostsLayout({
                 ? "You haven't created any posts yet."
                 : "No posts found. Try adjusting your search."}
             </p>
-            {variant === "blog" && (
+            {variant === "blog" && isAuthenticated && (
               <div className="text-center mt-4">
                 <button
                   onClick={() => setIsCreateModalOpen(true)}
@@ -150,9 +172,19 @@ export default function PostsLayout({
                 </button>
               </div>
             )}
+            {variant === "blog" && !isAuthenticated && (
+              <div className="text-center mt-4">
+                <Link
+                  href="/login"
+                  className="bg-main-green-500 hover:bg-main-green-600 text-white px-4 py-2 rounded-md transition-colors"
+                >
+                  Sign in to create posts
+                </Link>
+              </div>
+            )}
           </div>
         ) : (
-          <div className="">
+          <div className="mx-4 pb-10">
             {filteredPosts.map((post, index) => (
               <PostCard
                 key={post._id}
