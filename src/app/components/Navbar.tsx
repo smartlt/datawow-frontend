@@ -63,7 +63,7 @@ export default function Navbar({ onMenuToggle }: NavbarProps) {
             isMenuOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
-          <div className="flex flex-col p-4 space-y-3">
+          <div className="flex flex-col p-4 space-y-3 font-inter">
             <button
               onClick={handleMenuToggle}
               className="flex items-center space-x-2 hover:bg-main-green-300 p-2 rounded-md mb-2"
@@ -164,7 +164,7 @@ export default function Navbar({ onMenuToggle }: NavbarProps) {
               </Link>
             </div>
 
-            <div className="flex items-center">
+            <div className="flex items-center font-inter">
               {isAuthenticated ? (
                 <div className="flex items-center space-x-2">
                   <span className="mr-2">{user?.username}</span>
@@ -191,7 +191,7 @@ export default function Navbar({ onMenuToggle }: NavbarProps) {
         {/* Left Sidebar */}
         <div className="flex">
           <div className="bg-gray-100 text-black h-screen w-[280px] fixed left-0 flex flex-col">
-            <nav className="flex flex-col mt-6 px-4">
+            <nav className="flex flex-col mt-6 px-4 font-inter">
               <div className="flex flex-col space-y-4">
                 <Link
                   href="/dashboard"
@@ -274,7 +274,7 @@ export default function Navbar({ onMenuToggle }: NavbarProps) {
           </div>
 
           {/* Add margin to main content area */}
-          <div className="ml-48  w-[calc(100%-12rem)]">
+          <div className="ml-48 w-[calc(100%-12rem)]">
             {/* Main content will be here */}
           </div>
         </div>

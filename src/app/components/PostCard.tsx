@@ -19,7 +19,7 @@ interface PostCardProps {
 
 export const PostCard = ({
   post,
-  truncateLength = 150,
+  truncateLength = 200,
   categories = [],
   onPostUpdated,
   className = "",

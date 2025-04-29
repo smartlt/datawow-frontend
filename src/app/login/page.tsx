@@ -57,7 +57,7 @@ export default function LoginPage() {
               <p className="italic text-lg text-white font-castoro">a Board</p>
             </div>
           </div>
-          <div className="flex flex-col items-left justify-center px-6 py-12 lg:px-8">
+          <div className="flex flex-col items-left justify-center px-6 py-12 lg:px-8 font-inter">
             <div className="item-left text-left">
               <h1 className="text-2xl font-semibold mb-6 text-white">
                 Sign in
@@ -96,7 +96,7 @@ export default function LoginPage() {
 
       <div className="hidden md:block w-full min-h-screen ">
         <div className="bg-main-green-500 min-h-screen grid grid-cols-2 ">
-          <div className="flex flex-col items-left justify-center px-6 py-12 lg:px-8">
+          <div className="flex flex-col items-left justify-center px-6 py-12 lg:px-8 font-inter">
             <div className="item-left text-left">
               <h1 className="text-2xl font-semibold mb-6 text-white">
                 Sign in

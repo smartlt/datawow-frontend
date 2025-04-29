@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Castoro } from "next/font/google";
+import { Geist, Geist_Mono, Castoro, Inter } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "./contexts/AuthContext";
 import AuthenticatedLayout from "./components/AuthenticatedLayout";
@@ -20,6 +20,11 @@ const castoro = Castoro({
   weight: ["400"],
 });
 
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
   title: "a Board - Sign In",
   description: "a Board application",
@@ -33,7 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${castoro.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${castoro.variable} ${inter.variable} antialiased font-inter`}
       >
         <AuthProvider>
           <AuthenticatedLayout>{children}</AuthenticatedLayout>
