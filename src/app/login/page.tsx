@@ -54,7 +54,7 @@ export default function LoginPage() {
                   />
                 </div>
               </div>
-              <p className="italic text-lg text-white">a Board</p>
+              <p className="italic text-lg text-white font-castoro">a Board</p>
             </div>
           </div>
           <div className="flex flex-col items-left justify-center px-6 py-12 lg:px-8">
@@ -143,7 +143,7 @@ export default function LoginPage() {
                   />
                 </div>
               </div>
-              <p className="italic text-lg text-white">a Board</p>
+              <p className="italic text-lg text-white font-castoro">a Board</p>
             </div>
           </div>
         </div>

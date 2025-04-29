@@ -25,7 +25,10 @@ export default function Navbar({ onMenuToggle }: NavbarProps) {
       <nav className="bg-main-green-500 text-white w-full block md:hidden">
         <div className="flex justify-between items-center px-4 py-3">
           <div className="flex items-center">
-            <Link href="/dashboard" className="italic text-lg font-medium">
+            <Link
+              href="/dashboard"
+              className="italic text-lg font-medium font-castoro"
+            >
               a Board
             </Link>
           </div>
@@ -153,7 +156,10 @@ export default function Navbar({ onMenuToggle }: NavbarProps) {
         <div className="bg-main-green-500 text-white w-full">
           <div className="flex justify-between items-center px-6 py-3">
             <div className="flex items-center">
-              <Link href="/dashboard" className="italic text-lg font-medium">
+              <Link
+                href="/dashboard"
+                className="italic text-lg font-medium font-castoro"
+              >
                 a Board
               </Link>
             </div>
